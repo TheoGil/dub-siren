@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>YAWEB</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YAWEB</title>
 </head>
 <body>
-  <h1>Create awesome stuff!</h1>
+
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        <h2>Signal</h2>
+        <button type="button" class="js-trigger-signal">Start/Stop</button>
+        <hr>
+        <input type="checkbox" id="lock-signal" class="js-sustain-mode">
+        <label for="lock-signal">Lock</label>
+    </div>
+    <div>
+        <h2>Delay</h2>
+        <label for="delay-time">Time</label>
+        <input type="range" min="0.01" max="1" step="0.01" class="js-delay-time" id="delay-time">
+        <label for="delay-feedback">Feedback</label>
+        <input type="range" min="0" max="0.95" step="0.01" class="js-delay-feedback" id="delay-feedback">
+    </div>
+    <div>
+        <h2>LFO</h2>
+        <label for="lfo-freq">Freq</label>
+        <input type="range" min="0" max="20" step="1" value="0"e class="js-lfo-freq" id="lfo-freq">
+        <label for="lfo-amp">Amp</label>
+        <input type="range" min="0" max="1" step="0.1" value="1" class="js-lfo-amp" id="lfo-amp">
+        <label for="lfo-min">Min</label>
+        <input type="range" min="1" max="130.81" step="0.1" value="0" class="js-lfo-min" id="lfo-min">
+        <label for="lfo-max">Max</label>
+        <input type="range" min="1" max="130.81" step="0.1" value="130.81" class="js-lfo-max" id="lfo-max">
+    </div>
+</div>
 </body>
 </html>
