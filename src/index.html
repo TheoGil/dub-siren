@@ -8,12 +8,29 @@
 <body>
 
 <div style="display: flex; justify-content: space-around;">
+    <div class="knob-wrapper js-knob">
+        <img class="knob-base" src="./public/Sans-titre-1.png" alt="">
+        <img class="knob js-rotary-knob" src="./public/Sans-titre-2.png" alt="">
+        <div class="knob-handle js-knob-trigger"></div>
+        <div class="knob-ghost-draggable js-ghost-draggable"></div>
+    </div>
     <div>
         <h2>Signal</h2>
         <button type="button" class="js-trigger-signal">Start/Stop</button>
         <hr>
         <input type="checkbox" id="lock-signal" class="js-sustain-mode">
         <label for="lock-signal">Lock</label>
+        <hr>
+        <label for="synth-freq">Tune</label>
+        <input
+            type="range"
+            min="32.70"
+            max="2093.00"
+            step="0.1"
+            value="130.81"
+            class="js-synth-freq"
+            id="synth-freq"
+        >
     </div>
     <div>
         <h2>Delay</h2>
@@ -28,10 +45,6 @@
         <input type="range" min="0" max="20" step="1" value="0"e class="js-lfo-freq" id="lfo-freq">
         <label for="lfo-amp">Amp</label>
         <input type="range" min="0" max="1" step="0.1" value="1" class="js-lfo-amp" id="lfo-amp">
-        <label for="lfo-min">Min</label>
-        <input type="range" min="1" max="130.81" step="0.1" value="0" class="js-lfo-min" id="lfo-min">
-        <label for="lfo-max">Max</label>
-        <input type="range" min="1" max="130.81" step="0.1" value="130.81" class="js-lfo-max" id="lfo-max">
     </div>
 </div>
 </body>

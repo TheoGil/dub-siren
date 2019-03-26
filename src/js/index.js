@@ -3,12 +3,16 @@ import {
     PingPongDelay,
     LFO,
 } from 'tone/Tone/index';
+import Knob from './Knob';
 import '../scss/index.scss';
+
+const C1 = 32.70;
+const C3 = 130.81;
+const C7 = 2093;
 
 class DubSiren {
     constructor() {
-        // this.note = 523.25; // C5
-        this.note = 130.81; // C3
+        this.note = C3;
         this.keyDown = false;
         this.isPlaying = false;
         this.sustainModeActive = false;
@@ -33,11 +37,9 @@ class DubSiren {
         this.synth.connect(this.delay);
 
         // Setup LFO
-        this.lfo = new LFO(1, 1, 4000);
+        this.lfo = new LFO('8n.', C1, C7);
         this.lfo.connect(this.synth.oscillator.frequency);
         this.lfo.start();
-        console.log(this.lfo);
-
 
         // Attach event listeners to UI
         // Synth UI
@@ -45,6 +47,11 @@ class DubSiren {
         document.querySelector('.js-sustain-mode').addEventListener('change', this.toggleSustainMode.bind(this));
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
+        document.querySelector('.js-synth-freq').addEventListener('input', (e) => {
+            this.synth.frequency.value = e.target.value;
+            this.note = this.synth.frequency.value;
+        });
+
         // Delay UI
         document.querySelector('.js-delay-time').addEventListener('input', (e) => {
             this.delay.delayTime.setValueAtTime(e.target.value, 0);
@@ -59,11 +66,16 @@ class DubSiren {
         document.querySelector('.js-lfo-amp').addEventListener('input', (e) => {
             this.lfo.amplitude.value = e.target.value;
         });
-        document.querySelector('.js-lfo-min').addEventListener('input', (e) => {
-            this.lfo.min = e.target.value;
-        });
-        document.querySelector('.js-lfo-max').addEventListener('input', (e) => {
-            this.lfo.max = e.target.value;
+
+        new Knob({
+            el: '.js-knob',
+            value: this.note,
+            eminValue: C1,
+            maxValue: C7,
+            onDrag: (value) => {
+                this.synth.frequency.value = value;
+                this.note = value;
+            }
         });
     }
 

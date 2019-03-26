@@ -1,0 +1,25 @@
+$knob-width: 150px;
+
+.knob-wrapper {
+  position: relative;
+  width: $knob-width;
+  height: $knob-width;
+
+  .knob,
+  .knob-base,
+  .knob-handle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .knob {
+    pointer-events: none;
+  }
+
+  .knob-handle {
+    z-index: 1;
+  }
+}
