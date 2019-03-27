@@ -3,4 +3,70 @@
 
 // LOCAL
 @import "./abstract/system-font-stack";
+@import "./fonts";
 @import "./knob";
+@import "./custom-checkbox";
+
+body {
+  background: radial-gradient(circle, rgba(110,110,110,1) 0%, rgba(37,37,37,1) 50%, rgba(33,33,33,1) 100%);
+}
+
+.scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.rack {
+  display: flex;
+  box-shadow: 5px 5px 30px black;
+}
+
+.rack-content {
+  display: flex;
+  background-image: url('../../public/background.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 20px 0;
+}
+
+.handle {
+  width: 70px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  &--left {
+    background-image: url('../../public/rack-handle-left.png');
+  }
+
+  &--right {
+    background-image: url('../../public/rack-handle-right.png');
+  }
+}
+
+.section {
+  padding: 0 25px;
+}
+
+.section-title {
+  font-family: 'daniel', sans-serif;
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 15px 10px 10px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  &--signal {
+    background-image: url('../../public/tape1.png');
+  }
+
+  &--lfo {
+    background-image: url('../../public/tape2.png');
+  }
+
+  &--delay {
+    background-image: url('../../public/tape3.png');
+  }
+}

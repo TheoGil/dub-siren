@@ -15,10 +15,10 @@ class DubSiren {
         this.note = C3;
         this.keyDown = false;
         this.isPlaying = false;
-        this.sustainModeActive = false;
+        this.lockSignal = false;
 
         // Setup delay
-        this.delay = new PingPongDelay('8n.', 0.6);
+        this.delay = new PingPongDelay(0.5, 0.6);
         this.delay.wet.value = 0.25;
         this.delay.toMaster();
 
@@ -31,7 +31,7 @@ class DubSiren {
                 attack: 0.005,
                 decay: 0.6,
                 sustain: 0,
-                release: 1.37,
+                release: 0.5,
             }
         });
         this.synth.connect(this.delay);
@@ -43,32 +43,8 @@ class DubSiren {
 
         // Attach event listeners to UI
         // Synth UI
-        document.querySelector('.js-trigger-signal').addEventListener('click', this.toggleSignal.bind(this));
-        document.querySelector('.js-sustain-mode').addEventListener('change', this.toggleSustainMode.bind(this));
-        document.addEventListener('keydown', this.onKeyDown.bind(this));
-        document.addEventListener('keyup', this.onKeyUp.bind(this));
-        document.querySelector('.js-synth-freq').addEventListener('input', (e) => {
-            this.synth.frequency.value = e.target.value;
-            this.note = this.synth.frequency.value;
-        });
-
-        // Delay UI
-        document.querySelector('.js-delay-time').addEventListener('input', (e) => {
-            this.delay.delayTime.setValueAtTime(e.target.value, 0);
-        });
-        document.querySelector('.js-delay-feedback').addEventListener('input', (e) => {
-            this.delay.feedback.setValueAtTime(e.target.value, 0);
-        });
-        // LFO UI
-        document.querySelector('.js-lfo-freq').addEventListener('input', (e) => {
-            this.lfo.frequency.value = e.target.value;
-        });
-        document.querySelector('.js-lfo-amp').addEventListener('input', (e) => {
-            this.lfo.amplitude.value = e.target.value;
-        });
-
         new Knob({
-            el: '.js-knob',
+            el: '.js-osc-freq-knob',
             value: this.note,
             eminValue: C1,
             maxValue: C7,
@@ -77,10 +53,65 @@ class DubSiren {
                 this.note = value;
             }
         });
+        document.querySelector('.js-trigger-signal').addEventListener('click', this.toggleSignal.bind(this));
+        document.querySelector('.js-signal-lock').addEventListener('change', (e) => {
+            this.lockSignal = e.target.checked;
+            this.synth.envelope.sustain = this.lockSignal ? 1 : 0;
+            const buttonEl = document.querySelector('.js-signal-lock-button');
+            buttonEl.classList.toggle('locked');
+        });
+        document.addEventListener('keydown', this.onKeyDown.bind(this));
+        document.addEventListener('keyup', this.onKeyUp.bind(this));
+
+        // LFO UI
+        new Knob({
+            el: '.js-lfo-freq-knob',
+            value: 1,
+            minValue: 0,
+            maxValue: 15,
+            onDrag: (value) => {
+                this.lfo.frequency.value = value;
+            }
+        });
+        new Knob({
+            el: '.js-lfo-amp-knob',
+            value: 0.5,
+            minValue: 0,
+            maxValue: 1,
+            onDrag: (value) => {
+                this.lfo.amplitude.value = value;
+            }
+        });
+        const LFOWaveformsTypeButtons = document.querySelectorAll('.js-lfo-waveform');
+        LFOWaveformsTypeButtons.forEach((buttonEL) => {
+            buttonEL.addEventListener('change', (e) => {
+                this.lfo.type = e.target.value;
+            });
+        });
+
+        // Delay UI
+        new Knob({
+            el: '.js-delay-time-knob',
+            value: 0.5,
+            minValue: 0.01,
+            maxValue: 1,
+            onDrag: (value) => {
+                this.delay.delayTime.setValueAtTime(value, 0.1);
+            }
+        });
+        new Knob({
+            el: '.js-delay-feedback-knob',
+            value: 0.65,
+            minValue: 0.01,
+            maxValue: 0.95,
+            onDrag: (value) => {
+                this.delay.feedback.setValueAtTime(value, 0.1);
+            }
+        });
     }
 
     toggleSignal(event, forceSustain) {
-        if (this.sustainModeActive || forceSustain) {
+        if (this.lockSignal || forceSustain) {
             if (this.isPlaying) {
                 this.synth.envelope.sustain = 0;
                 this.synth.triggerRelease();
@@ -96,20 +127,17 @@ class DubSiren {
     }
 
     onKeyDown(e) {
-        if (!this.keyDown) {
+        if (!this.keyDown && e.keyCode === 32) {
             this.keyDown = true;
             this.toggleSignal(e, true);
         }
     }
 
     onKeyUp(e) {
-        this.keyDown = false;
-        this.toggleSignal(e, true);
-    }
-
-    toggleSustainMode(e) {
-        this.sustainModeActive = e.target.checked;
-        this.synth.envelope.sustain = this.sustainModeActive ? 1 : 0;
+        if (this.keyDown && e.keyCode === 32) {
+            this.keyDown = false;
+            this.toggleSignal(e, true);
+        }
     }
 }
 

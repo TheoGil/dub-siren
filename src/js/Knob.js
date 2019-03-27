@@ -13,6 +13,7 @@ class Knob {
             type: 'y',
             trigger: this.triggerEl,
             onDrag: this.onDrag.bind(this),
+            liveSnap: options.snap || false,
         });
         this.minAngle = options.minAngle || 0;
         this.maxAngle = options.maxAngle || 360;

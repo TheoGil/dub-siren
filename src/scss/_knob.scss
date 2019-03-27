@@ -1,4 +1,11 @@
-$knob-width: 150px;
+$knob-width: 75px;
+
+.knob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
 
 .knob-wrapper {
   position: relative;

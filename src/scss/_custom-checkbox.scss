@@ -1,0 +1,63 @@
+.custom-checkbox-input {
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+
+  &:checked {
+    + .custom-checkbox-label {
+      background-image: url('../../public/button-on.png');
+    }
+  }
+}
+
+.custom-checkbox-label {
+  display: block;
+  color: white;
+  padding: 10px;
+  border: 0;
+  background-color: transparent;
+  background-image: url('../../public/button-off.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+
+  &:active {
+    outline-width: 0;
+    background-image: url('../../public/button-on.png');
+  }
+
+  svg {
+    display: block;
+    margin: auto;
+    width: 30px;
+    fill: white;
+  }
+
+  &--lock-signal {
+    svg {
+      width: 15px;
+    }
+
+    .icon-locked {
+      display: none;
+    }
+
+    .icon-unlocked {
+      display: block;
+    }
+
+    &.locked {
+      .icon-locked {
+        display: block;
+      }
+
+      .icon-unlocked {
+        display: none;
+      }
+    }
+  }
+}
