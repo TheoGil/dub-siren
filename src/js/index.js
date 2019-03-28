@@ -12,6 +12,7 @@ const C7 = 2093;
 
 class DubSiren {
     constructor() {
+        this.volume = -10;
         this.note = C3;
         this.keyDown = false;
         this.isPlaying = false;
@@ -34,6 +35,7 @@ class DubSiren {
                 release: 0.5,
             }
         });
+        this.synth.volume.value = this.volume ;
         this.synth.connect(this.delay);
 
         // Setup LFO
@@ -46,11 +48,20 @@ class DubSiren {
         new Knob({
             el: '.js-osc-freq-knob',
             value: this.note,
-            eminValue: C1,
+            minValue: C1,
             maxValue: C7,
             onDrag: (value) => {
                 this.synth.frequency.value = value;
                 this.note = value;
+            }
+        });
+        new Knob({
+            el: '.js-osc-volume-knob',
+            value: this.volume,
+            minValue: -70,
+            maxValue: 0,
+            onDrag: (value) => {
+                this.synth.volume.value = value;
             }
         });
         document.querySelector('.js-trigger-signal').addEventListener('click', this.toggleSignal.bind(this));
