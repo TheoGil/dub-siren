@@ -5,6 +5,7 @@ import {
     Master,
     Filter,
     Volume,
+    Scale,
 } from 'tone/Tone/index';
 import Knob from './Knob';
 import '../scss/index.scss';
@@ -118,7 +119,7 @@ class DubSiren {
             minValue: 0.01,
             maxValue: 1,
             onDrag: (value) => {
-                this.delay.delayTime.setValueAtTime(value, 0.1);
+                this.delay.delayTime.rampTo(value, 0.5);
             }
         });
         new Knob({
