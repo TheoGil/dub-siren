@@ -77,6 +77,7 @@ class DubSiren {
         });
         this.onMouseUpCallBack = this.onMouseUp.bind(this);
         this.triggerSignalBtn.addEventListener('mousedown', this.onMouseDown.bind(this));
+        this.triggerSignalBtn.addEventListener('touchstart', this.onMouseDown.bind(this));
         document.querySelector('.js-signal-lock').addEventListener('change', (e) => {
             this.lockSignal = e.target.checked;
             this.synth.envelope.sustain = this.lockSignal ? 1 : 0;
@@ -176,6 +177,7 @@ class DubSiren {
         this.synth.triggerAttack(this.note);
         this.triggerSignalBtn.classList.add('active');
         document.addEventListener('mouseup', this.onMouseUpCallBack);
+        document.addEventListener('touchend', this.onMouseUpCallBack);
     }
 
     onMouseUp() {
@@ -184,6 +186,7 @@ class DubSiren {
         this.triggerSignalBtn.classList.remove('active');
 
         document.removeEventListener('mouseup', this.onMouseUpCallBack);
+        document.removeEventListener('touchend', this.onMouseUpCallBack);
     }
 
     onKeyDown(e) {

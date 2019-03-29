@@ -52,3 +52,25 @@ body {
     background-image: url('../../public/rack-handle-right.png');
   }
 }
+
+@media screen and (max-width: 620px) {
+  .scene {
+    height: auto;
+    width: auto;
+  }
+
+  .rack,
+  .rack-content {
+    width: 100%;
+    padding: 0;
+  }
+
+  .handle {
+    display: none;
+  }
+
+  .knob-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+}
