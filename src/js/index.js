@@ -4,6 +4,7 @@ import {
     LFO,
     Master,
     Filter,
+    Volume,
 } from 'tone/Tone/index';
 import Knob from './Knob';
 import '../scss/index.scss';
@@ -24,11 +25,12 @@ class DubSiren {
         // Setup delay
         this.delay = new PingPongDelay(0.5, 0.6);
         this.delay.wet.value = 1;
-        // Connect delay to filter
         this.delayFilter = new Filter(this.delayFilerFreq, 'lowpass');
         this.delayFilter.Q.value = 7.5;
+        this.delayVolume = new Volume(-6);
         this.delay.connect(this.delayFilter);
-        this.delayFilter.toMaster();
+        this.delayFilter.connect(this.delayVolume);
+        this.delayVolume.toMaster();
 
         // Setup synth
         this.synth = new Synth({
