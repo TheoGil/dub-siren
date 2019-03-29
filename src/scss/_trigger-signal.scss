@@ -1,4 +1,6 @@
 .trigger-signal {
+  cursor: pointer;
+  display: flex;
   position: relative;
   border: 0;
   background-color: transparent;
@@ -29,5 +31,13 @@
     &::after {
       opacity: 1;
     }
+  }
+
+  svg {
+    display: block;
+    margin: auto;
+    width: 25px;
+    fill: #909090;
+    mix-blend-mode: multiply;
   }
 }

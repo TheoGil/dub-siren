@@ -37,6 +37,7 @@ class DubSiren {
         });
         this.synth.volume.value = this.volume ;
         this.synth.connect(this.delay);
+        this.triggerSignalBtn = document.querySelector('.js-trigger-signal');
 
         // Setup LFO
         this.lfo = new LFO('8n.', C1, C7);
@@ -64,7 +65,8 @@ class DubSiren {
                 this.synth.volume.value = value;
             }
         });
-        document.querySelector('.js-trigger-signal').addEventListener('click', this.toggleSignal.bind(this));
+        this.onMouseUpCallBack = this.onMouseUp.bind(this);
+        this.triggerSignalBtn.addEventListener('mousedown', this.onMouseDown.bind(this));
         document.querySelector('.js-signal-lock').addEventListener('change', (e) => {
             this.lockSignal = e.target.checked;
             this.synth.envelope.sustain = this.lockSignal ? 1 : 0;
@@ -122,19 +124,36 @@ class DubSiren {
     }
 
     toggleSignal(event, forceSustain) {
-        if (this.lockSignal || forceSustain) {
+        // if (this.lockSignal || forceSustain) {
             if (this.isPlaying) {
                 this.synth.envelope.sustain = 0;
                 this.synth.triggerRelease();
+                this.triggerSignalBtn.classList.remove('active');
             } else {
                 this.synth.envelope.sustain = 1;
                 this.synth.triggerAttack(this.note);
+                this.triggerSignalBtn.classList.add('active');
             }
             this.isPlaying = !this.isPlaying;
-        } else {
-            this.synth.envelope.sustain = 0;
-            this.synth.triggerAttackRelease(this.note);
-        }
+        // } else {
+            // this.synth.envelope.sustain = 0;
+            // this.synth.triggerAttackRelease(this.note);
+        // }
+    }
+
+    onMouseDown() {
+        this.synth.envelope.sustain = 1;
+        this.synth.triggerAttack(this.note);
+        this.triggerSignalBtn.classList.add('active');
+        document.addEventListener('mouseup', this.onMouseUpCallBack);
+    }
+
+    onMouseUp() {
+        this.synth.envelope.sustain = 0;
+        this.synth.triggerRelease();
+        this.triggerSignalBtn.classList.remove('active');
+
+        document.removeEventListener('mouseup', this.onMouseUpCallBack);
     }
 
     onKeyDown(e) {
