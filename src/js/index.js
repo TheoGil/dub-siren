@@ -3,6 +3,7 @@ import {
     PingPongDelay,
     LFO,
     Master,
+    Filter,
 } from 'tone/Tone/index';
 import Knob from './Knob';
 import '../scss/index.scss';
@@ -15,6 +16,7 @@ class DubSiren {
     constructor() {
         this.volume = -10;
         this.note = C3;
+        this.delayFilerFreq = 4000;
         this.keyDown = false;
         this.isPlaying = false;
         this.lockSignal = false;
@@ -22,7 +24,11 @@ class DubSiren {
         // Setup delay
         this.delay = new PingPongDelay(0.5, 0.6);
         this.delay.wet.value = 1;
-        this.delay.toMaster();
+        // Connect delay to filter
+        this.delayFilter = new Filter(this.delayFilerFreq, 'lowpass');
+        this.delayFilter.Q.value = 7.5;
+        this.delay.connect(this.delayFilter);
+        this.delayFilter.toMaster();
 
         // Setup synth
         this.synth = new Synth({
@@ -115,11 +121,21 @@ class DubSiren {
         });
         new Knob({
             el: '.js-delay-feedback-knob',
-            value: 0.65,
+            value: 0.5,
             minValue: 0.01,
             maxValue: 0.95,
             onDrag: (value) => {
                 this.delay.feedback.setValueAtTime(value, 0.1);
+            }
+        });
+        new Knob({
+            el: '.js-delay-filter-freq-knob',
+            value: this.delayFilerFreq,
+            minValue: 26,
+            maxValue: 5000,
+            onDrag: (value) => {
+                this.delayFilerFreq = value;
+                this.delayFilter.frequency.value = value;
             }
         });
         document.querySelector('.js-delay-on-off').addEventListener('change', this.toggleDelay.bind(this));
