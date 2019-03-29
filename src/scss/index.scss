@@ -3,7 +3,9 @@
 
 // LOCAL
 @import "./abstract/system-font-stack";
+@import "./abstract/variables";
 @import "./fonts";
+@import "./section";
 @import "./knob";
 @import "./custom-checkbox";
 @import "./trigger-signal";
@@ -48,30 +50,5 @@ body {
 
   &--right {
     background-image: url('../../public/rack-handle-right.png');
-  }
-}
-
-.section {
-  padding: 0 25px;
-}
-
-.section-title {
-  font-family: 'daniel', sans-serif;
-  display: inline-block;
-  margin: 0 0 1rem;
-  padding: 15px 10px 10px;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-
-  &--signal {
-    background-image: url('../../public/tape1.png');
-  }
-
-  &--lfo {
-    background-image: url('../../public/tape2.png');
-  }
-
-  &--delay {
-    background-image: url('../../public/tape3.png');
   }
 }

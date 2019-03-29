@@ -2,6 +2,7 @@ import {
     Synth,
     PingPongDelay,
     LFO,
+    Master,
 } from 'tone/Tone/index';
 import Knob from './Knob';
 import '../scss/index.scss';
@@ -20,7 +21,7 @@ class DubSiren {
 
         // Setup delay
         this.delay = new PingPongDelay(0.5, 0.6);
-        this.delay.wet.value = 0.25;
+        this.delay.wet.value = 1;
         this.delay.toMaster();
 
         // Setup synth
@@ -36,7 +37,7 @@ class DubSiren {
             }
         });
         this.synth.volume.value = this.volume ;
-        this.synth.connect(this.delay);
+        this.synth.fan(this.delay, Master);
         this.triggerSignalBtn = document.querySelector('.js-trigger-signal');
 
         // Setup LFO
@@ -121,6 +122,7 @@ class DubSiren {
                 this.delay.feedback.setValueAtTime(value, 0.1);
             }
         });
+        document.querySelector('.js-delay-on-off').addEventListener('change', this.toggleDelay.bind(this));
     }
 
     toggleSignal(event, forceSustain) {
@@ -141,6 +143,15 @@ class DubSiren {
         // }
     }
 
+    toggleDelay(e) {
+        // this.delay.wet.value = e.target.checked ? 1 : 0;
+        if (e.target.checked) {
+            this.synth.connect(this.delay);
+        } else {
+            this.synth.disconnect(this.delay);
+        }
+    }
+
     onMouseDown() {
         this.synth.envelope.sustain = 1;
         this.synth.triggerAttack(this.note);
@@ -158,6 +169,9 @@ class DubSiren {
 
     onKeyDown(e) {
         if (!this.keyDown && e.keyCode === 32) {
+            // Prevent button from being activated if one is focused
+            e.preventDefault();
+
             this.keyDown = true;
             this.toggleSignal(e, true);
         }
