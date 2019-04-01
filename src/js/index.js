@@ -195,15 +195,17 @@ class DubSiren {
   }
 
   onMouseDown() {
+    console.log(this.synth);
     if (this.lockSignal) {
       if (this.isPlaying) {
+        console.log('stop');
         this.onMouseUp();
       } else {
-        console.log('start!');
+        console.log('start! (lock)');
         this.startSignal();
       }
     } else {
-      console.log('stop');
+      console.log('start!');
       this.startSignal();
       document.addEventListener('mouseup', this.onMouseUpCallBack);
       document.addEventListener('touchend', this.onMouseUpCallBack);
