@@ -17,11 +17,6 @@ const C3 = 130.81;
 const C7 = 2093;
 
 const triggerSignalBtn = document.querySelector('.js-trigger-signal');
-function onAudioContextReady() {
-  new DubSiren();
-  alert('Audio CTX ready!');
-}
-StartAudioContext(context, '.js-trigger-signal', onAudioContextReady);
 
 class DubSiren {
   constructor() {
@@ -195,17 +190,13 @@ class DubSiren {
   }
 
   onMouseDown() {
-    console.log(this.synth);
     if (this.lockSignal) {
       if (this.isPlaying) {
-        console.log('stop');
         this.onMouseUp();
       } else {
-        console.log('start! (lock)');
         this.startSignal();
       }
     } else {
-      console.log('start!');
       this.startSignal();
       document.addEventListener('mouseup', this.onMouseUpCallBack);
       document.addEventListener('touchend', this.onMouseUpCallBack);
@@ -239,3 +230,8 @@ class DubSiren {
     }
   }
 }
+
+function onAudioContextReady() {
+  new DubSiren();
+}
+StartAudioContext(context._context, triggerSignalBtn, onAudioContextReady);
