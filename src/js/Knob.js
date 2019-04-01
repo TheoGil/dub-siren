@@ -25,7 +25,9 @@ class Knob {
         this.setValue(this.value);
     }
 
-    onDrag() {
+    onDrag(e) {
+        e.preventDefault();
+
         // Update UI (knob's rotation)
         const deltaY = -this.draggable[0].deltaY;
         const newRotationValue = this.getKnobRotation() + deltaY;

@@ -7,12 +7,21 @@ import {
   Volume,
   Scale,
 } from 'tone/Tone/index';
+import StartAudioContext from 'startaudiocontext';
 import Knob from './Knob';
 import '../scss/index.scss';
 
 const C1 = 32.70;
 const C3 = 130.81;
 const C7 = 2093;
+
+const triggerSignalBtn = document.querySelector('.js-trigger-signal');
+const ctx = new AudioContext();
+function onAudioContextReady() {
+  new DubSiren();
+  alert('Audio CTX ready!');
+}
+StartAudioContext(ctx, '.js-trigger-signal', onAudioContextReady);
 
 class DubSiren {
   constructor() {
@@ -50,7 +59,7 @@ class DubSiren {
     });
     this.synth.volume.value = this.volume;
     this.synth.fan(this.delay, Master);
-    this.triggerSignalBtn = document.querySelector('.js-trigger-signal');
+    this.triggerSignalBtn = triggerSignalBtn;
 
     // Setup LFO
     this.lfo = new LFO(this.lfoFreq, C1, C7);
@@ -226,5 +235,3 @@ class DubSiren {
     }
   }
 }
-
-new DubSiren();
