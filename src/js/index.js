@@ -6,6 +6,7 @@ import {
   Filter,
   Volume,
   Scale,
+  context
 } from 'tone/Tone/index';
 import StartAudioContext from 'startaudiocontext';
 import Knob from './Knob';
@@ -16,12 +17,11 @@ const C3 = 130.81;
 const C7 = 2093;
 
 const triggerSignalBtn = document.querySelector('.js-trigger-signal');
-const ctx = new AudioContext();
 function onAudioContextReady() {
   new DubSiren();
   alert('Audio CTX ready!');
 }
-StartAudioContext(ctx, '.js-trigger-signal', onAudioContextReady);
+StartAudioContext(context, '.js-trigger-signal', onAudioContextReady);
 
 class DubSiren {
   constructor() {
