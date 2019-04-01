@@ -153,22 +153,17 @@ class DubSiren {
         document.querySelector('.js-delay-on-off').addEventListener('change', this.toggleDelay.bind(this));
     }
 
-    toggleSignal(event, forceSustain) {
-        // if (this.lockSignal || forceSustain) {
-            if (this.isPlaying) {
-                this.synth.envelope.sustain = 0;
-                this.synth.triggerRelease();
-                this.triggerSignalBtn.classList.remove('active');
-            } else {
-                this.synth.envelope.sustain = 1;
-                this.synth.triggerAttack(this.note);
-                this.triggerSignalBtn.classList.add('active');
-            }
-            this.isPlaying = !this.isPlaying;
-        // } else {
-            // this.synth.envelope.sustain = 0;
-            // this.synth.triggerAttackRelease(this.note);
-        // }
+    toggleSignal() {
+        if (this.isPlaying) {
+            this.synth.envelope.sustain = 0;
+            this.synth.triggerRelease();
+            this.triggerSignalBtn.classList.remove('active');
+        } else {
+            this.synth.envelope.sustain = 1;
+            this.synth.triggerAttack(this.note);
+            this.triggerSignalBtn.classList.add('active');
+        }
+        this.isPlaying = !this.isPlaying;
     }
 
     toggleDelay(e) {
