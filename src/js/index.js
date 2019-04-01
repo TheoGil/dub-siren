@@ -19,6 +19,8 @@ class DubSiren {
     this.volume = -10;
     this.note = C3;
     this.delayFilerFreq = 4000;
+    this.lfoFreq = 6;
+    this.lfoAmount = 0.5 ;
     this.keyDown = false;
     this.isPlaying = false;
     this.lockSignal = false;
@@ -51,8 +53,9 @@ class DubSiren {
     this.triggerSignalBtn = document.querySelector('.js-trigger-signal');
 
     // Setup LFO
-    this.lfo = new LFO('8n.', C1, C7);
+    this.lfo = new LFO(this.lfoFreq, C1, C7);
     this.lfo.connect(this.synth.oscillator.frequency);
+    this.lfo.amplitude.value = this.lfoAmount;
     this.lfo.start();
 
     // Attach event listeners to UI
@@ -91,7 +94,7 @@ class DubSiren {
     // LFO UI
     new Knob({
       el: '.js-lfo-freq-knob',
-      value: 1,
+      value: this.lfoFreq,
       minValue: 0,
       maxValue: 15,
       onDrag: (value) => {
@@ -100,7 +103,7 @@ class DubSiren {
     });
     new Knob({
       el: '.js-lfo-amp-knob',
-      value: 0.5,
+      value: this.lfoAmount,
       minValue: 0,
       maxValue: 1,
       onDrag: (value) => {
