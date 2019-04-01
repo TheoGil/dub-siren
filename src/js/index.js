@@ -22,6 +22,7 @@ class DubSiren {
         this.keyDown = false;
         this.isPlaying = false;
         this.lockSignal = false;
+        this.reserveLFOwaveform = false;
 
         // Setup delay
         this.delay = new PingPongDelay(0.5, 0.6);
@@ -94,7 +95,7 @@ class DubSiren {
             minValue: 0,
             maxValue: 15,
             onDrag: (value) => {
-                this.lfo.frequency.value = value;
+                this.lfo.frequency.value = this.reserveLFOwaveform ? -value : value;
             }
         });
         new Knob({
@@ -109,6 +110,13 @@ class DubSiren {
         const LFOWaveformsTypeButtons = document.querySelectorAll('.js-lfo-waveform');
         LFOWaveformsTypeButtons.forEach((buttonEL) => {
             buttonEL.addEventListener('change', (e) => {
+                if (e.target.getAttribute('data-reverse') === 'true') {
+                    this.reserveLFOwaveform = true;
+                    this.lfo.frequency.value = -this.lfo.frequency.value;
+                } else {
+                    this.reserveLFOwaveform = false;
+                    this.lfo.frequency.value = Math.abs(this.lfo.frequency.value);
+                }
                 this.lfo.type = e.target.value;
             });
         });

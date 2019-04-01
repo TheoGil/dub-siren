@@ -33,7 +33,6 @@
   svg {
     display: block;
     margin: auto;
-    width: 30px;
     fill: white;
   }
 
@@ -59,5 +58,18 @@
         display: none;
       }
     }
+  }
+}
+
+.lfo-waveform-checkbox-container {
+  flex-grow: 1;
+  margin-bottom: 5px;
+
+  &:first-child {
+    margin-right: 10px;
+  }
+
+  svg {
+    width: 30px;
   }
 }
