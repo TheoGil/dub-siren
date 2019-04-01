@@ -1,0 +1,16 @@
+.informations {
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 2rem;
+  display: none;
+
+  @include large-up() {
+    display: block;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}

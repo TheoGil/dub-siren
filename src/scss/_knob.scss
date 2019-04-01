@@ -1,5 +1,3 @@
-$knob-width: 75px;
-
 .knob {
   display: flex;
   flex-direction: column;
@@ -9,8 +7,13 @@ $knob-width: 75px;
 
 .knob-wrapper {
   position: relative;
-  width: $knob-width;
-  height: $knob-width;
+  width: $knob-width-small;
+  height: $knob-width-small;
+
+  @include large-up() {
+    width: $knob-width;
+    height: $knob-width;
+  }
 
   .knob,
   .knob-base,
@@ -29,4 +32,8 @@ $knob-width: 75px;
   .knob-handle {
     z-index: 1;
   }
+}
+
+.knob-label {
+  text-shadow: 1px 1px 1px transparentize(white, .2);
 }

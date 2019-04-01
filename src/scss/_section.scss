@@ -1,5 +1,7 @@
 .section {
   padding: 0 $section-spacing;
+  height: 100%;
+  flex-grow: 1;
 }
 
 .section-title {

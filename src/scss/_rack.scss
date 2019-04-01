@@ -1,0 +1,42 @@
+.rack {
+  display: flex;
+  box-shadow: 5px 5px 30px black;
+  user-select: none;
+}
+
+.rack-content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 20px 0;
+  background-image: url('../../public/background.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  @include large-up() {
+    width: auto;
+    flex-wrap: nowrap;
+    height: auto;
+  }
+}
+
+.handle {
+  width: 70px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: none;
+
+  @include large-up() {
+    display: block;
+  }
+
+  &--left {
+    background-image: url('../../public/rack-handle-left.png');
+  }
+
+  &--right {
+    background-image: url('../../public/rack-handle-right.png');
+  }
+}

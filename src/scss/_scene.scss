@@ -1,0 +1,11 @@
+.scene {
+  height: 100vh;
+
+  @include large-up() {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+  }
+}
