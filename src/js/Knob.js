@@ -14,6 +14,7 @@ class Knob {
             trigger: this.triggerEl,
             onDrag: this.onDrag.bind(this),
             liveSnap: options.snap || false,
+            allowNativeTouchScrolling: false,
         });
         this.minAngle = options.minAngle || 0;
         this.maxAngle = options.maxAngle || 360;
