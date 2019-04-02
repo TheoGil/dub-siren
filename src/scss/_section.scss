@@ -1,7 +1,9 @@
 .section {
-  padding: 0 $section-spacing;
-  height: 100%;
-  flex-grow: 1;
+  padding: 0 15px;
+
+  @include large-up() {
+    flex-grow: 1;
+  }
 }
 
 .section-title {
@@ -23,6 +25,20 @@
   &--delay {
     background-image: url('../../public/tape3.png');
   }
+}
+
+.section-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include large-up() {
+    display: block;
+  }
+}
+
+.section-component {
+  margin: 0;
 }
 
 .lfo {

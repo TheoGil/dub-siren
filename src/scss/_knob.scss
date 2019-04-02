@@ -2,15 +2,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
+
+  @include large-up() {
+    margin-bottom: 1rem;
+  }
 }
 
 .knob-wrapper {
   position: relative;
   width: $knob-width-small;
   height: $knob-width-small;
+  margin-bottom: 5px;
 
   @include large-up() {
+    margin-bottom: 0;
     width: $knob-width;
     height: $knob-width;
   }
@@ -36,4 +41,9 @@
 
 .knob-label {
   text-shadow: 1px 1px 1px transparentize(white, .2);
+  font-size: 15px;
+
+  @include large-up() {
+    font-size: 16px;
+  }
 }

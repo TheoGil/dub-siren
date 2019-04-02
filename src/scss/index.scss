@@ -16,15 +16,11 @@
 
 body {
   background: radial-gradient(circle, #2b2b2b 0%, #272727 50%, #000000 100%);
-}
+  overflow: hidden;
 
-@media screen and (max-width: 620px) {
-  /*
-  .knob-wrapper {
-    width: 40px;
-    height: 40px;
+  @include large-up() {
+    overflow: auto;
   }
-  */
 }
 
 .spritesheet {

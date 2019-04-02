@@ -1,3 +1,5 @@
+$trigger-signal-width: 85px;
+
 .trigger-signal {
   cursor: pointer;
   display: flex;
@@ -6,10 +8,15 @@
   background-color: transparent;
   background-image: url('../../public/big-button-off.png');
   background-size: 100% 100%;
-  width: 100%;
+  width: $trigger-signal-width;
+  max-width: 100%;
+  margin: auto;
   height: 50px;
   outline-width: 0;
   transition: filter ease-out 150ms;
+
+  @include large-up() {
+  }
 
   &::after {
     content: "";

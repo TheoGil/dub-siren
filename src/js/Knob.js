@@ -13,6 +13,7 @@ class Knob {
             type: 'y',
             trigger: this.triggerEl,
             onDrag: this.onDrag.bind(this),
+            onPress: (e) => {e.stopPropagation();},
             liveSnap: options.snap || false,
             allowNativeTouchScrolling: false,
         });
