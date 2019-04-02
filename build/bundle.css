@@ -327,6 +327,9 @@ body {
   box-shadow: 5px 5px 30px black;
   user-select: none;
   height: 100%; }
+  @media (min-width: 620px) {
+    .rack {
+      height: auto; } }
 
 .rack-content {
   display: flex;
